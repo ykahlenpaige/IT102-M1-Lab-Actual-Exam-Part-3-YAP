@@ -220,7 +220,7 @@ else:
     # SIDEBAR
     # -------------------------
 
-    st.sidebar.title("☠️ OVERINDULGENT")
+    st.sidebar.title("—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—")
 
     st.sidebar.write(
         "Logged in as:"
