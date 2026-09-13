@@ -87,7 +87,7 @@ if "progress" not in st.session_state:
 
 if not st.session_state.logged_in:
 
-    st.title("OVERINDULGENT")
+    st.title("—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
