@@ -220,7 +220,7 @@ else:
     # SIDEBAR
     # -------------------------
 
-    st.sidebar.title("Survivor")
+    st.sidebar.title("-Survivor-")
 
     st.sidebar.write(
         "Logged in as:"
