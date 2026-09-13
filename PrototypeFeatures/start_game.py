@@ -6,7 +6,7 @@ def show_game(username):
 
     st.title("🏭 THE FACTORY")
 
-    st.subheader("Chapter 1: The Beauty Pill")
+    st.subheader("Chapter 1: The Urge")
 
     st.write(
         "You are a factory worker in a society "
@@ -14,7 +14,7 @@ def show_game(username):
     )
 
     st.write(
-        "The factory produces special beauty pills "
+        "The factory produces special pills "
         "that are only available to the rich."
     )
 
