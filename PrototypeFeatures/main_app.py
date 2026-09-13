@@ -11,7 +11,7 @@ import save_files
 # -----------------------------
 
 st.set_page_config(
-    page_title="OverIndulgent",
+    page_title="—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—",
     page_icon="💊",
     layout="centered"
 )
