@@ -3,7 +3,8 @@ import streamlit as st
 
 def show_menu():
 
-    st.title("☠️ OVERINDULGENT")
+    st.title("OVERINDULGENT")
+
     st.subheader("Main Menu")
 
     st.write("Welcome to the factory.")
@@ -18,7 +19,6 @@ def show_menu():
             "▶ START GAME",
             use_container_width=True
         ):
-
             st.session_state.page = "start"
             st.rerun()
 
@@ -26,7 +26,6 @@ def show_menu():
             "CONTINUE",
             use_container_width=True
         ):
-
             st.session_state.page = "continue"
             st.rerun()
 
@@ -36,7 +35,6 @@ def show_menu():
             "ABOUT GAME",
             use_container_width=True
         ):
-
             st.session_state.page = "about"
             st.rerun()
 
@@ -44,6 +42,5 @@ def show_menu():
             "EXIT",
             use_container_width=True
         ):
-
             st.session_state.page = "exit"
             st.rerun()
