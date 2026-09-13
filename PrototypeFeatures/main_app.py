@@ -11,8 +11,8 @@ import save_files
 # -----------------------------
 
 st.set_page_config(
-    page_title="OverIndulgent",
-    page_icon="☠️",
+    page_title="—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—",
+    page_icon="💊",
     layout="centered"
 )
 
@@ -87,7 +87,7 @@ if "progress" not in st.session_state:
 
 if not st.session_state.logged_in:
 
-    st.title("☠️ OVERINDULGENT")
+    st.title("—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
