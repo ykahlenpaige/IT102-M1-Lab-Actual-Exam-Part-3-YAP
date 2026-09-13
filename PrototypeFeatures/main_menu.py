@@ -52,8 +52,8 @@ def show_menu():
     )
 
     st.write(
-        "Beauty has a price. "
-        "How much are you willing to pay?"
+        "Living is a privilege. "
+        "Just how much are you willing to pay?"
     )
 
     st.divider()
