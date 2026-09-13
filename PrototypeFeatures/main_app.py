@@ -494,6 +494,16 @@ else:
 
         st.divider()
 
+        st.write(
+            """
+            THIS IS ONLY A PROTOTYPE HUHU :'> made by Kahlen Yap for OOP m1 Exam
+            I lowk put a solid amount of love into this and drew all the scenes using IbisPaintX 
+            but the title screen. All scenes for the prototype and choices are by moi! :3
+            """
+        )
+
+        st.divider()
+
         if st.button(
             "← BACK TO MAIN MENU",
             use_container_width=True
