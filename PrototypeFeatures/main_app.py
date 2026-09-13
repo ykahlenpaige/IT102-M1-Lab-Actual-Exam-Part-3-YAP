@@ -391,7 +391,7 @@ else:
 
         st.write(
             "The game follows a factory worker who "
-            "secretly consumes a beauty pill and "
+            "secretly consumes a pill and "
             "becomes the target of the factory."
         )
 

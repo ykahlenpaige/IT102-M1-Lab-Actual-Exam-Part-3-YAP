@@ -26,7 +26,7 @@ def show_game(username):
     st.divider()
 
     st.warning(
-        "You notice a beauty pill sitting on the production line."
+        "You notice a pill sitting on the production line."
     )
 
     st.write(
