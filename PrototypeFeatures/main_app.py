@@ -11,6 +11,26 @@ st.set_page_config(
     page_icon="💊"
 )
 
+st.markdown("""
+<style>
+
+.game-title {
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: 70px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+}
+
+.game-subtitle {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 3px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # SESSION VARIABLES
 
