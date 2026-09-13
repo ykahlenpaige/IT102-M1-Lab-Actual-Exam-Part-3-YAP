@@ -11,8 +11,8 @@ import save_files
 # -----------------------------
 
 st.set_page_config(
-    page_title="—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—",
-    page_icon="💊",
+    page_title="OverIndulgent",
+    page_icon="☠️",
     layout="centered"
 )
 
@@ -82,16 +82,27 @@ if "progress" not in st.session_state:
 
 
 # -----------------------------
-# LOGIN / REGISTER
+# LOGIN / REGISTER SCREEN
 # -----------------------------
 
 if not st.session_state.logged_in:
 
-    st.title("—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—")
+    # TITLE SCREEN IMAGE
+    st.image(
+        "title_screen.jpg",
+        use_container_width=True
+    )
+
+    st.title("☠️ OVERINDULGENT")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
     st.divider()
+
+
+    # -------------------------
+    # LOGIN AND REGISTER TABS
+    # -------------------------
 
     login_tab, register_tab = st.tabs(
         [
@@ -220,7 +231,7 @@ else:
     # SIDEBAR
     # -------------------------
 
-    st.sidebar.title("-Survivor-")
+    st.sidebar.title("☠️ OVERINDULGENT")
 
     st.sidebar.write(
         "Logged in as:"
@@ -232,6 +243,10 @@ else:
 
     st.sidebar.divider()
 
+
+    # -------------------------
+    # LOGOUT
+    # -------------------------
 
     if st.sidebar.button(
         "LOGOUT",
@@ -348,11 +363,40 @@ else:
         st.divider()
 
 
+        # -------------------------
+        # USER JOURNEY
+        # -------------------------
+
         st.subheader("USER JOURNEY")
 
         st.write(
-            "1. Prototype by Kahlen Yap for OOP exam 1 :>."
+            "1. Register or log in."
         )
+
+        st.write(
+            "2. Start the game."
+        )
+
+        st.write(
+            "3. Take or reject the beauty pill."
+        )
+
+        st.write(
+            "4. Escape the factory and monsters."
+        )
+
+        st.write(
+            "5. Discover the truth about the pills."
+        )
+
+        st.write(
+            "6. Make choices that affect the ending."
+        )
+
+        st.write(
+            "7. Finish the game or return to the menu."
+        )
+
 
         st.divider()
 
