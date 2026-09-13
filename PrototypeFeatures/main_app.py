@@ -6,6 +6,9 @@ import game_registration_login
 import main_menu
 import start_game
 import save_files
+import scene_2
+import scene_3
+import scene_4
 
 
 # --------------------------------------------------
@@ -75,6 +78,7 @@ if os.path.exists(image_path):
             background: transparent !important;
         }}
 
+
         /* ============================= */
         /* FONT                           */
         /* ============================= */
@@ -109,6 +113,7 @@ if os.path.exists(image_path):
             font-size: 16px;
         }}
 
+
         /* ============================= */
         /* CONTENT SPACING                */
         /* ============================= */
@@ -118,6 +123,7 @@ if os.path.exists(image_path):
             padding-bottom: 4rem;
         }}
 
+
         /* ============================= */
         /* INPUT BOXES                    */
         /* ============================= */
@@ -125,6 +131,7 @@ if os.path.exists(image_path):
         input {{
             font-family: 'Cinzel', serif !important;
         }}
+
 
         /* ============================= */
         /* BUTTONS                        */
@@ -135,6 +142,7 @@ if os.path.exists(image_path):
             font-weight: 600 !important;
             letter-spacing: 1px;
         }}
+
 
         /* ============================= */
         /* TABS                           */
@@ -173,6 +181,9 @@ if "page" not in st.session_state:
 
 if "progress" not in st.session_state:
     st.session_state.progress = 1
+
+if "scene_choice" not in st.session_state:
+    st.session_state.scene_choice = ""
 
 
 # --------------------------------------------------
@@ -400,6 +411,39 @@ else:
 
 
     # ----------------------------------------------
+    # SCENE 2
+    # ----------------------------------------------
+
+    elif st.session_state.page == "scene2":
+
+        scene_2.show_scene(
+            st.session_state.username
+        )
+
+
+    # ----------------------------------------------
+    # SCENE 3
+    # ----------------------------------------------
+
+    elif st.session_state.page == "scene3":
+
+        scene_3.show_scene(
+            st.session_state.username
+        )
+
+
+    # ----------------------------------------------
+    # SCENE 4
+    # ----------------------------------------------
+
+    elif st.session_state.page == "scene4":
+
+        scene_4.show_scene(
+            st.session_state.username
+        )
+
+
+    # ----------------------------------------------
     # CONTINUE GAME
     # ----------------------------------------------
 
@@ -432,7 +476,23 @@ else:
                 use_container_width=True
             ):
 
-                st.session_state.page = "start"
+                progress = saved_game.get(
+                    "progress",
+                    1
+                )
+
+                if progress == 2:
+                    st.session_state.page = "scene2"
+
+                elif progress == 3:
+                    st.session_state.page = "scene3"
+
+                elif progress == 4:
+                    st.session_state.page = "scene4"
+
+                else:
+                    st.session_state.page = "start"
+
                 st.rerun()
 
         else:
@@ -479,8 +539,8 @@ else:
         st.write(
             """
             You play as a factory worker who secretly
-            consumes a beauty pill that is meant only
-            for the wealthy.
+            consumes a reality altering pill that is meant only
+            for the wealthy to escape the harsh truth and expectations of society.
             """
         )
 
