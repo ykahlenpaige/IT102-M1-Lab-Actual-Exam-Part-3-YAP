@@ -8,116 +8,159 @@ import start_game
 import save_files
 
 
-# -----------------------------
+# --------------------------------------------------
 # PAGE SETTINGS
-# -----------------------------
+# --------------------------------------------------
 
 st.set_page_config(
     page_title="OverIndulgent",
-    page_icon="💊",
+    page_icon="☠️",
     layout="centered"
 )
 
 
-# -----------------------------
-# GET BACKGROUND IMAGE
-# -----------------------------
+# --------------------------------------------------
+# LOAD BACKGROUND IMAGE
+# --------------------------------------------------
 
 image_path = os.path.join(
-    os.path.dirname(__file__),
+    os.path.dirname(os.path.abspath(__file__)),
     "title_screen.jpg"
 )
 
-with open(image_path, "rb") as image_file:
-    image_data = base64.b64encode(
-        image_file.read()
-    ).decode()
+if os.path.exists(image_path):
+
+    with open(image_path, "rb") as image_file:
+        image_data = base64.b64encode(
+            image_file.read()
+        ).decode()
+
+    st.markdown(
+        f"""
+        <style>
+
+        /* ============================= */
+        /* FULL BACKGROUND IMAGE          */
+        /* ============================= */
+
+        .stApp {{
+            background: transparent !important;
+        }}
+
+        [data-testid="stAppViewContainer"] {{
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.35)
+                ),
+                url("data:image/jpeg;base64,{image_data}");
+
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+
+            min-height: 100vh;
+        }}
+
+        [data-testid="stAppViewContainer"] > .main {{
+            background: transparent !important;
+        }}
+
+        [data-testid="stMain"] {{
+            background: transparent !important;
+        }}
+
+        [data-testid="stHeader"] {{
+            background: transparent !important;
+        }}
+
+        /* ============================= */
+        /* FONT                           */
+        /* ============================= */
+
+        @import url(
+            'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap'
+        );
+
+        html,
+        body,
+        [class*="css"] {{
+            font-family: 'Cinzel', serif;
+        }}
+
+        h1 {{
+            font-family: 'Cinzel', serif;
+            font-size: 45px !important;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 4px;
+        }}
+
+        h2,
+        h3 {{
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }}
+
+        p {{
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+        }}
+
+        /* ============================= */
+        /* CONTENT SPACING                */
+        /* ============================= */
+
+        .block-container {{
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }}
+
+        /* ============================= */
+        /* INPUT BOXES                    */
+        /* ============================= */
+
+        input {{
+            font-family: 'Cinzel', serif !important;
+        }}
+
+        /* ============================= */
+        /* BUTTONS                        */
+        /* ============================= */
+
+        .stButton > button {{
+            font-family: 'Cinzel', serif !important;
+            font-weight: 600 !important;
+            letter-spacing: 1px;
+        }}
+
+        /* ============================= */
+        /* TABS                           */
+        /* ============================= */
+
+        button[data-baseweb="tab"] {{
+            font-family: 'Cinzel', serif !important;
+            font-weight: 600 !important;
+        }}
+
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+else:
+
+    st.warning(
+        "title_screen.jpg was not found. "
+        "Please place it in the same folder as main_app.py."
+    )
 
 
-# -----------------------------
-# CUSTOM FONT + BACKGROUND
-# -----------------------------
-
-st.markdown(
-    f"""
-    <style>
-
-    @import url(
-        'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap'
-    );
-
-    /* ENTIRE PAGE BACKGROUND */
-
-    .stApp {{
-        background-image:
-            linear-gradient(
-                rgba(0, 0, 0, 0.45),
-                rgba(0, 0, 0, 0.45)
-            ),
-            url("data:image/jpeg;base64,{image_data}");
-
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }}
-
-
-    /* MAIN CONTENT */
-
-    .main .block-container {{
-        font-family: 'Cinzel', serif;
-    }}
-
-
-    /* TITLE */
-
-    h1 {{
-        font-family: 'Cinzel', serif;
-        font-size: 45px !important;
-        font-weight: 700;
-        text-align: center;
-        letter-spacing: 4px;
-    }}
-
-
-    h2 {{
-        font-family: 'Cinzel', serif;
-        font-weight: 600;
-        letter-spacing: 2px;
-    }}
-
-
-    h3 {{
-        font-family: 'Cinzel', serif;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }}
-
-
-    p {{
-        font-family: 'Cinzel', serif;
-        font-size: 16px;
-    }}
-
-
-    /* LOGIN BOX */
-
-    div[data-testid="stVerticalBlockBorderWrapper"] {{
-        background: rgba(0, 0, 0, 0.55);
-        border-radius: 12px;
-        padding: 20px;
-    }}
-
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# -----------------------------
+# --------------------------------------------------
 # SESSION STATE
-# -----------------------------
+# --------------------------------------------------
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -132,236 +175,281 @@ if "progress" not in st.session_state:
     st.session_state.progress = 1
 
 
-# -----------------------------
+# --------------------------------------------------
 # LOGIN / REGISTER SCREEN
-# -----------------------------
+# --------------------------------------------------
 
 if not st.session_state.logged_in:
 
-    st.title("—=OVERINDULGENT=—")
+    st.markdown(
+        """
+        <div style="text-align: center; margin-top: 20px;">
 
-    st.caption("SURVIVAL HORROR PROTOTYPE")
+        <h1>
+        —=OVERINDULGENT=—
+        </h1>
+
+        <p style="
+            color: #aaaaaa;
+            font-size: 15px;
+            letter-spacing: 1px;
+        ">
+        SURVIVAL HORROR PROTOTYPE
+        </p>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     st.divider()
 
-
-    # -------------------------
-    # LOGIN / REGISTER
-    # -------------------------
-
     login_tab, register_tab = st.tabs(
-        [
-            "LOGIN",
-            "REGISTER"
-        ]
+        ["LOGIN", "REGISTER"]
     )
 
 
-    # -------------------------
+    # --------------------------------------------------
     # LOGIN
-    # -------------------------
+    # --------------------------------------------------
 
     with login_tab:
 
         st.subheader("WELCOME BACK")
 
         username = st.text_input(
-            "Username",
+            "USERNAME",
             key="login_username"
         )
 
         password = st.text_input(
-            "Password",
+            "PASSWORD",
             type="password",
             key="login_password"
         )
-
 
         if st.button(
             "LOGIN",
             use_container_width=True
         ):
 
-            success, message = game_registration_login.login(
-                username,
-                password
+            success, message = (
+                game_registration_login.login(
+                    username,
+                    password
+                )
             )
-
 
             if success:
 
                 st.session_state.logged_in = True
-
                 st.session_state.username = username
+                st.session_state.page = "menu"
 
                 saved_game = save_files.get_save(username)
 
-
                 if saved_game:
-
                     st.session_state.progress = saved_game.get(
                         "progress",
                         1
                     )
-
                 else:
-
                     st.session_state.progress = 1
-
-
-                st.session_state.page = "menu"
 
                 st.rerun()
 
-
             else:
-
                 st.error(message)
 
 
-    # -------------------------
+    # --------------------------------------------------
     # REGISTER
-    # -------------------------
+    # --------------------------------------------------
 
     with register_tab:
 
-        st.subheader("CREATE AN ACCOUNT")
+        st.subheader("CREATE ACCOUNT")
 
-        username = st.text_input(
-            "New Username",
+        new_username = st.text_input(
+            "USERNAME",
             key="register_username"
         )
 
-        password = st.text_input(
-            "Password",
+        new_password = st.text_input(
+            "PASSWORD",
             type="password",
             key="register_password"
         )
 
+        confirm_password = st.text_input(
+            "CONFIRM PASSWORD",
+            type="password",
+            key="confirm_password"
+        )
 
         if st.button(
             "REGISTER",
             use_container_width=True
         ):
 
-            success, message = game_registration_login.register(
-                username,
-                password
-            )
+            if new_password != confirm_password:
 
-
-            if success:
-
-                st.success(message)
-
-                st.info(
-                    "You can now log in."
+                st.error(
+                    "Passwords do not match."
                 )
 
             else:
 
-                st.error(message)
+                success, message = (
+                    game_registration_login.register(
+                        new_username,
+                        new_password
+                    )
+                )
+
+                if success:
+
+                    st.success(message)
+
+                    st.info(
+                        "You can now log in using your account."
+                    )
+
+                else:
+
+                    st.error(message)
 
 
-# -----------------------------
-# AFTER LOGIN
-# -----------------------------
+# --------------------------------------------------
+# LOGGED-IN GAME
+# --------------------------------------------------
 
 else:
 
-    username = st.session_state.username
-
-
-    # -------------------------
+    # ----------------------------------------------
     # SIDEBAR
-    # -------------------------
+    # ----------------------------------------------
 
-    st.sidebar.title("☠️ OVERINDULGENT")
+    with st.sidebar:
 
-    st.sidebar.write(
-        "Logged in as:"
-    )
+        st.title("☠️ OVERINDULGENT")
 
-    st.sidebar.write(
-        f"**{username}**"
-    )
+        st.write(
+            "Logged in as:",
+            st.session_state.username
+        )
 
-    st.sidebar.divider()
+        st.divider()
+
+        if st.button(
+            "MAIN MENU",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "menu"
+            st.rerun()
+
+        if st.button(
+            "START GAME",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "start"
+            st.rerun()
+
+        if st.button(
+            "CONTINUE",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "continue"
+            st.rerun()
+
+        st.divider()
+
+        if st.button(
+            "LOG OUT",
+            use_container_width=True
+        ):
+
+            st.session_state.logged_in = False
+            st.session_state.username = ""
+            st.session_state.page = "login"
+
+            st.rerun()
 
 
-    # -------------------------
-    # LOGOUT
-    # -------------------------
-
-    if st.sidebar.button(
-        "LOGOUT",
-        use_container_width=True
-    ):
-
-        st.session_state.logged_in = False
-
-        st.session_state.username = ""
-
-        st.session_state.page = "login"
-
-        st.rerun()
-
-
-    # -------------------------
+    # ----------------------------------------------
     # MAIN MENU
-    # -------------------------
+    # ----------------------------------------------
 
     if st.session_state.page == "menu":
 
         main_menu.show_menu()
 
 
-    # -------------------------
+    # ----------------------------------------------
     # START GAME
-    # -------------------------
+    # ----------------------------------------------
 
     elif st.session_state.page == "start":
 
-        start_game.show_game(username)
+        start_game.show_game(
+            st.session_state.username
+        )
 
 
-    # -------------------------
-    # CONTINUE
-    # -------------------------
+    # ----------------------------------------------
+    # CONTINUE GAME
+    # ----------------------------------------------
 
     elif st.session_state.page == "continue":
 
         st.title("CONTINUE")
 
-        st.subheader("YOUR SAVED GAME")
+        saved_game = save_files.get_save(
+            st.session_state.username
+        )
 
-        progress = st.session_state.progress
+        if saved_game:
 
-
-        if progress == 1:
-
-            st.info(
-                "You have not started the game yet."
+            st.write(
+                "Saved progress found."
             )
+
+            st.write(
+                "Progress:",
+                saved_game.get("progress", 1)
+            )
+
+            st.write(
+                "Last choice:",
+                saved_game.get("choice", "None")
+            )
+
+            if st.button(
+                "CONTINUE GAME",
+                use_container_width=True
+            ):
+
+                st.session_state.page = "start"
+                st.rerun()
 
         else:
 
-            st.success(
-                "Your saved game was found!"
+            st.info(
+                "No saved game found."
             )
 
-            st.write(
-                f"Current progress: Chapter {progress}"
-            )
+            if st.button(
+                "START NEW GAME",
+                use_container_width=True
+            ):
 
-            st.write(
-                "The continuation section will "
-                "be added as the game is developed."
-            )
-
+                st.session_state.page = "start"
+                st.rerun()
 
         st.divider()
-
 
         if st.button(
             "← BACK TO MAIN MENU",
@@ -369,44 +457,42 @@ else:
         ):
 
             st.session_state.page = "menu"
-
             st.rerun()
 
 
-    # -------------------------
+    # ----------------------------------------------
     # ABOUT GAME
-    # -------------------------
+    # ----------------------------------------------
 
     elif st.session_state.page == "about":
 
         st.title("ABOUT OVERINDULGENT")
 
-        st.subheader("SURVIVAL HORROR")
-
         st.write(
-            "OverIndulgent is a narrative-driven "
-            "survival horror game about overconsumption, "
-            "greed, beauty, and social inequality."
+            """
+            OverIndulgent is a narrative-driven survival
+            horror game about overconsumption, greed,
+            beauty, and social inequality.
+            """
         )
 
         st.write(
-            "The game follows a factory worker who "
-            "secretly consumes a pill and "
-            "becomes the target of the factory."
+            """
+            You play as a factory worker who secretly
+            consumes a beauty pill that is meant only
+            for the wealthy.
+            """
         )
-
-
-        st.subheader("GAME GOAL")
 
         st.write(
-            "The game encourages players to think about "
-            "instant gratification, status, beauty, "
-            "and the effects of overconsumption."
+            """
+            After being discovered, you must escape the
+            factory, uncover the truth behind the pills,
+            and survive what waits inside.
+            """
         )
-
 
         st.divider()
-
 
         if st.button(
             "← BACK TO MAIN MENU",
@@ -414,33 +500,25 @@ else:
         ):
 
             st.session_state.page = "menu"
-
             st.rerun()
 
 
-    # -------------------------
+    # ----------------------------------------------
     # EXIT
-    # -------------------------
+    # ----------------------------------------------
 
     elif st.session_state.page == "exit":
 
-        st.title("EXIT GAME")
-
-        st.subheader("THANK YOU FOR PLAYING")
+        st.title("THANK YOU FOR PLAYING")
 
         st.write(
-            "You may close the browser tab to exit."
+            "You have exited OverIndulgent."
         )
 
-
-        st.divider()
-
-
         if st.button(
-            "← BACK TO MAIN MENU",
+            "BACK TO MAIN MENU",
             use_container_width=True
         ):
 
             st.session_state.page = "menu"
-
             st.rerun()
