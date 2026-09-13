@@ -6,23 +6,76 @@ import start_game
 import save_files
 
 
+# -----------------------------
+# PAGE SETTINGS
+# -----------------------------
+
 st.set_page_config(
     page_title="OverIndulgent",
-    page_icon="💊"
+    page_icon="💊",
+    layout="centered"
 )
 
+
+# -----------------------------
+# CUSTOM FONT AND TEXT STYLE
+# -----------------------------
+
+st.markdown("""
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Cinzel', serif;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 45px !important;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+p {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+}
+
+.stCaption {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+# -----------------------------
+# SESSION STATE
+# -----------------------------
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-
 if "username" not in st.session_state:
     st.session_state.username = ""
 
-
 if "page" not in st.session_state:
     st.session_state.page = "login"
-
 
 if "progress" not in st.session_state:
     st.session_state.progress = 1
@@ -36,12 +89,14 @@ if not st.session_state.logged_in:
 
     st.title("☠️ OVERINDULGENT")
 
-    st.caption("Survival Horror Prototype")
+    st.caption("SURVIVAL HORROR PROTOTYPE")
+
+    st.divider()
 
     login_tab, register_tab = st.tabs(
         [
-            "Login",
-            "Register"
+            "LOGIN",
+            "REGISTER"
         ]
     )
 
@@ -52,7 +107,7 @@ if not st.session_state.logged_in:
 
     with login_tab:
 
-        st.subheader("Welcome Back")
+        st.subheader("WELCOME BACK")
 
         username = st.text_input(
             "Username",
@@ -67,7 +122,7 @@ if not st.session_state.logged_in:
 
 
         if st.button(
-            "Login",
+            "LOGIN",
             use_container_width=True
         ):
 
@@ -114,7 +169,7 @@ if not st.session_state.logged_in:
 
     with register_tab:
 
-        st.subheader("Create an Account")
+        st.subheader("CREATE AN ACCOUNT")
 
         username = st.text_input(
             "New Username",
@@ -129,7 +184,7 @@ if not st.session_state.logged_in:
 
 
         if st.button(
-            "Register",
+            "REGISTER",
             use_container_width=True
         ):
 
@@ -162,11 +217,24 @@ else:
 
 
     # -------------------------
-    # LOGOUT
+    # SIDEBAR
     # -------------------------
 
+    st.sidebar.title("☠️ OVERINDULGENT")
+
+    st.sidebar.write(
+        "Logged in as:"
+    )
+
+    st.sidebar.write(
+        f"**{username}**"
+    )
+
+    st.sidebar.divider()
+
+
     if st.sidebar.button(
-        "Logout",
+        "LOGOUT",
         use_container_width=True
     ):
 
@@ -179,31 +247,33 @@ else:
         st.rerun()
 
 
-    # -------------------------
+    # -----------------------------
     # MAIN MENU
-    # -------------------------
+    # -----------------------------
 
     if st.session_state.page == "menu":
 
         main_menu.show_menu()
 
 
-    # -------------------------
+    # -----------------------------
     # START GAME
-    # -------------------------
+    # -----------------------------
 
     elif st.session_state.page == "start":
 
         start_game.show_game(username)
 
 
-    # -------------------------
+    # -----------------------------
     # CONTINUE
-    # -------------------------
+    # -----------------------------
 
     elif st.session_state.page == "continue":
 
         st.title("CONTINUE")
+
+        st.subheader("YOUR SAVED GAME")
 
         progress = st.session_state.progress
 
@@ -221,8 +291,7 @@ else:
             )
 
             st.write(
-                "Current progress:",
-                progress
+                f"Current progress: Chapter {progress}"
             )
 
             st.write(
@@ -235,7 +304,7 @@ else:
 
 
         if st.button(
-            "← Back to Main Menu",
+            "← BACK TO MAIN MENU",
             use_container_width=True
         ):
 
@@ -244,15 +313,15 @@ else:
             st.rerun()
 
 
-    # -------------------------
+    # -----------------------------
     # ABOUT GAME
-    # -------------------------
+    # -----------------------------
 
     elif st.session_state.page == "about":
 
         st.title("ABOUT OVERINDULGENT")
 
-        st.subheader("Survival Horror")
+        st.subheader("SURVIVAL HORROR")
 
         st.write(
             "OverIndulgent is a narrative-driven "
@@ -267,7 +336,7 @@ else:
         )
 
 
-        st.subheader("Game Goal")
+        st.subheader("GAME GOAL")
 
         st.write(
             "The game encourages players to think about "
@@ -279,28 +348,42 @@ else:
         st.divider()
 
 
-        st.subheader("User Journey")
+        st.subheader("USER JOURNEY")
 
-        st.write("1. Register or log in.")
+        st.write(
+            "1. Register or log in."
+        )
 
-        st.write("2. Start the game.")
+        st.write(
+            "2. Start the game."
+        )
 
-        st.write("3. Take or reject the beauty pill.")
+        st.write(
+            "3. Take or reject the beauty pill."
+        )
 
-        st.write("4. Escape the factory and monsters.")
+        st.write(
+            "4. Escape the factory and monsters."
+        )
 
-        st.write("5. Discover the truth about the pills.")
+        st.write(
+            "5. Discover the truth about the pills."
+        )
 
-        st.write("6. Make choices that affect the ending.")
+        st.write(
+            "6. Make choices that affect the ending."
+        )
 
-        st.write("7. Finish the game or return to the menu.")
+        st.write(
+            "7. Finish the game or return to the menu."
+        )
 
 
         st.divider()
 
 
         if st.button(
-            "← Back to Main Menu",
+            "← BACK TO MAIN MENU",
             use_container_width=True
         ):
 
@@ -309,27 +392,26 @@ else:
             st.rerun()
 
 
-    # -------------------------
+    # -----------------------------
     # EXIT
-    # -------------------------
+    # -----------------------------
 
     elif st.session_state.page == "exit":
 
         st.title("EXIT GAME")
 
-        st.write(
-            "Thank you for playing OverIndulgent."
-        )
+        st.subheader("THANK YOU FOR PLAYING")
 
         st.write(
             "You may close the browser tab to exit."
         )
 
+
         st.divider()
 
 
         if st.button(
-            "← Back to Main Menu",
+            "← BACK TO MAIN MENU",
             use_container_width=True
         ):
 
