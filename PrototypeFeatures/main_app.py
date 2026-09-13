@@ -444,6 +444,72 @@ else:
 
 
     # ----------------------------------------------
+    # TO BE CONTINUED
+    # ----------------------------------------------
+
+    elif st.session_state.page == "ending":
+
+        st.markdown(
+            """
+            <div style="
+                text-align: center;
+                margin-top: 150px;
+            ">
+
+            <h1 style="
+                font-size: 55px !important;
+                letter-spacing: 6px;
+            ">
+            TO BE CONTINUED...
+            </h1>
+
+            <p style="
+                color: #aaaaaa;
+                font-size: 18px;
+                letter-spacing: 2px;
+            ">
+            THE TRUTH HAS ONLY JUST BEGUN.
+            </p>
+
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.divider()
+
+        st.write(
+            "You uncovered something the factory never wanted "
+            "anyone to see."
+        )
+
+        st.write(
+            "But the deeper truth is still waiting..."
+        )
+
+        st.write(
+            "Will you survive long enough to expose it?"
+        )
+
+        st.divider()
+
+        if st.button(
+            "BACK TO MAIN MENU",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "menu"
+            st.rerun()
+
+        if st.button(
+            "EXIT",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "exit"
+            st.rerun()
+            
+    # ----------------------------------------------
     # CONTINUE GAME
     # ----------------------------------------------
 
