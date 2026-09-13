@@ -2,6 +2,7 @@ import save_files
 
 
 def register(username, password):
+
     username = username.strip()
 
     if username == "":
@@ -19,6 +20,7 @@ def register(username, password):
 
 
 def login(username, password):
+
     username = username.strip()
 
     user = save_files.find_user(username)

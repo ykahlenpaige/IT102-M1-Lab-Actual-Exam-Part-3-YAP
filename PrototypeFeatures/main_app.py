@@ -2,6 +2,7 @@ import streamlit as st
 
 import game_registration_login
 import main_menu
+import start_game
 import save_files
 
 
@@ -11,27 +12,42 @@ st.set_page_config(
 )
 
 
+# SESSION VARIABLES
+
 if "logged_in" not in st.session_state:
+
     st.session_state.logged_in = False
 
+
 if "username" not in st.session_state:
+
     st.session_state.username = ""
 
+
+if "page" not in st.session_state:
+
+    st.session_state.page = "login"
+
+
 if "progress" not in st.session_state:
+
     st.session_state.progress = 1
 
 
-st.title("☠️ OVERINDULGENT")
-st.caption("Survival Horror Prototype")
-
-
-# LOGIN AND REGISTER
+# LOGIN / REGISTER
 
 if not st.session_state.logged_in:
+
+    st.title("☠️ OVERINDULGENT")
+
+    st.caption("Survival Horror Prototype")
 
     login_tab, register_tab = st.tabs(
         ["Login", "Register"]
     )
+
+
+    # LOGIN
 
     with login_tab:
 
@@ -63,6 +79,7 @@ if not st.session_state.logged_in:
             if success:
 
                 st.session_state.logged_in = True
+
                 st.session_state.username = username
 
                 saved_game = save_files.get_save(
@@ -70,17 +87,28 @@ if not st.session_state.logged_in:
                 )
 
                 if saved_game:
+
                     st.session_state.progress = (
-                        saved_game.get("progress", 1)
+                        saved_game.get(
+                            "progress",
+                            1
+                        )
                     )
+
                 else:
+
                     st.session_state.progress = 1
 
-                st.success(message)
+                st.session_state.page = "menu"
+
                 st.rerun()
 
             else:
+
                 st.error(message)
+
+
+    # REGISTER
 
     with register_tab:
 
@@ -110,20 +138,26 @@ if not st.session_state.logged_in:
             )
 
             if success:
+
                 st.success(message)
-                st.info("You can now log in.")
+
+                st.info(
+                    "You can now log in."
+                )
+
             else:
+
                 st.error(message)
 
 
-# MAIN GAME
+# AFTER LOGIN
 
 else:
 
-    menu = main_menu.show_menu()
-
     username = st.session_state.username
-    progress = st.session_state.progress
+
+
+    # LOGOUT BUTTON
 
     if st.sidebar.button(
         "Logout",
@@ -131,255 +165,163 @@ else:
     ):
 
         st.session_state.logged_in = False
+
         st.session_state.username = ""
+
+        st.session_state.page = "login"
+
         st.rerun()
+
+
+    # MAIN MENU
+
+    if st.session_state.page == "menu":
+
+        main_menu.show_menu()
 
 
     # START GAME
 
-    if menu == "Start Game":
+    elif st.session_state.page == "start":
 
-        st.header("The Factory")
-
-        st.write(
-            "You are a factory worker in a society "
-            "obsessed with beauty, status, and consumption."
-        )
-
-        st.write(
-            "The beauty pills are only for the rich. "
-            "Workers are forbidden from taking them."
-        )
-
-        st.warning(
-            "You secretly take one of the pills."
-        )
-
-        choice = st.radio(
-            "What do you do?",
-            [
-                "Take the pill",
-                "Leave the pill"
-            ]
-        )
-
-        if st.button(
-            "Continue",
-            use_container_width=True
-        ):
-
-            if choice == "Take the pill":
-
-                st.session_state.progress = 2
-
-                save_files.save_game(
-                    username,
-                    {
-                        "progress": 2,
-                        "choice": "Take the pill"
-                    }
-                )
-
-                st.success(
-                    "You take the pill. "
-                    "Something feels wrong..."
-                )
-
-            else:
-
-                st.session_state.progress = 2
-
-                save_files.save_game(
-                    username,
-                    {
-                        "progress": 2,
-                        "choice": "Leave the pill"
-                    }
-                )
-
-                st.info(
-                    "You leave the pill behind, "
-                    "but you hear something moving nearby."
-                )
+        start_game.show_game(username)
 
 
-    # CONTINUE GAME
+    # CONTINUE
 
-    elif menu == "Continue":
+    elif st.session_state.page == "continue":
 
-        st.header("Escape the Factory")
+        st.title("CONTINUE")
+
+        progress = st.session_state.progress
 
         if progress == 1:
 
             st.info(
-                "You have not started the game yet. "
-                "Go to Start Game."
+                "You have not started the game yet."
             )
 
         else:
 
+            st.success(
+                "Your saved game was found!"
+            )
+
             st.write(
-                "The factory alarm starts ringing."
+                "Current progress:",
+                progress
             )
 
-            st.error(
-                "TERMINATION ORDER: WORKER DETECTED"
+            st.write(
+                "The continuation section will "
+                "be added as the game is developed."
             )
 
-            action = st.radio(
-                "A monster is approaching. What do you do?",
-                [
-                    "Hide and wait",
-                    "Run through the factory",
-                    "Fight back"
-                ]
-            )
+        st.divider()
 
-            if st.button(
-                "Make Choice",
-                use_container_width=True
-            ):
+        if st.button(
+            "← Back to Main Menu",
+            use_container_width=True
+        ):
 
-                if action == "Hide and wait":
+            st.session_state.page = "menu"
 
-                    st.session_state.progress = 3
-
-                    save_files.save_game(
-                        username,
-                        {
-                            "progress": 3,
-                            "action": action
-                        }
-                    )
-
-                    st.success(
-                        "You survive the encounter "
-                        "and find a hidden laboratory."
-                    )
-
-                elif action == "Run through the factory":
-
-                    st.session_state.progress = 3
-
-                    save_files.save_game(
-                        username,
-                        {
-                            "progress": 3,
-                            "action": action
-                        }
-                    )
-
-                    st.success(
-                        "You escape the monster "
-                        "and discover strange files."
-                    )
-
-                else:
-
-                    st.session_state.progress = 3
-
-                    save_files.save_game(
-                        username,
-                        {
-                            "progress": 3,
-                            "action": action
-                        }
-                    )
-
-                    st.warning(
-                        "You fight the monster and barely survive."
-                    )
-
-
-            if progress >= 3:
-
-                st.divider()
-
-                st.subheader("The Truth")
-
-                st.write(
-                    "The files reveal that the beauty pills "
-                    "were never meant to improve people's lives."
-                )
-
-                st.write(
-                    "Overconsumption has changed the rich "
-                    "into monsters that see workers as food "
-                    "or threats."
-                )
-
-                ending = st.radio(
-                    "What will you choose?",
-                    [
-                        "Expose the truth",
-                        "Keep the truth for yourself",
-                        "Destroy the remaining pills"
-                    ]
-                )
-
-                if st.button(
-                    "Finish Game",
-                    use_container_width=True
-                ):
-
-                    save_files.save_game(
-                        username,
-                        {
-                            "progress": 4,
-                            "ending": ending
-                        }
-                    )
-
-                    st.session_state.progress = 4
-
-                    st.success(
-                        "Your choice: " + ending
-                    )
-
-                    st.balloons()
+            st.rerun()
 
 
     # ABOUT
 
-    elif menu == "About Game":
+    elif st.session_state.page == "about":
 
-        st.header("About OverIndulgent")
+        st.title("ABOUT OVERINDULGENT")
+
+        st.subheader("Survival Horror")
 
         st.write(
-            "OverIndulgent is a narrative-driven survival "
-            "horror game about overconsumption, greed, "
-            "beauty, and social inequality."
+            "OverIndulgent is a narrative-driven "
+            "survival horror game about overconsumption, "
+            "greed, beauty, and social inequality."
         )
 
-        st.subheader("Goal")
+        st.write(
+            "The game follows a factory worker who "
+            "secretly consumes a beauty pill and "
+            "becomes the target of the factory."
+        )
+
+        st.subheader("Game Goal")
 
         st.write(
             "The game encourages players to think about "
-            "instant gratification, status, and the effects "
-            "of wanting more."
+            "instant gratification, status, beauty, "
+            "and the effects of overconsumption."
         )
+
+        st.divider()
 
         st.subheader("User Journey")
 
-        st.write("1. Register or log in.")
-        st.write("2. Start the game.")
-        st.write("3. Take or reject the beauty pill.")
-        st.write("4. Escape the factory and monsters.")
-        st.write("5. Discover the truth about the pills.")
-        st.write("6. Make choices that affect the ending.")
-        st.write("7. Finish the game or return to the menu.")
+        st.write(
+            "1. Register or log in."
+        )
+
+        st.write(
+            "2. Start the game."
+        )
+
+        st.write(
+            "3. Take or reject the beauty pill."
+        )
+
+        st.write(
+            "4. Escape the factory and monsters."
+        )
+
+        st.write(
+            "5. Discover the truth about the pills."
+        )
+
+        st.write(
+            "6. Make choices that affect the ending."
+        )
+
+        st.write(
+            "7. Finish the game or return to the menu."
+        )
+
+        st.divider()
+
+        if st.button(
+            "← Back to Main Menu",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "menu"
+
+            st.rerun()
 
 
     # EXIT
 
-    elif menu == "Exit":
+    elif st.session_state.page == "exit":
 
-        st.header("Exit Game")
+        st.title("EXIT GAME")
 
         st.write(
             "Thank you for playing OverIndulgent."
         )
 
-        st.info(
+        st.write(
             "You may close the browser tab to exit."
         )
+
+        st.divider()
+
+        if st.button(
+            "← Back to Main Menu",
+            use_container_width=True
+        ):
+
+            st.session_state.page = "menu"
+
+            st.rerun()
