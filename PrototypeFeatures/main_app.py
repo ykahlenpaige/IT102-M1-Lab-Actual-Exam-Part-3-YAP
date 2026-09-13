@@ -341,7 +341,7 @@ else:
 
     with st.sidebar:
 
-        st.title("☠️ OVERINDULGENT")
+        st.title("SURVIVOR")
 
         st.write(
             "Logged in as:",
