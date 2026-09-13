@@ -58,9 +58,15 @@ if "progress" not in st.session_state:
 
 if not st.session_state.logged_in:
 
-    st.title("OVERINDULGENT")
+st.markdown(
+    '<div class="game-title">OVERINDULGENT</div>',
+    unsafe_allow_html=True
+)
 
-    st.caption("Survival Horror Prototype")
+st.markdown(
+    '<div class="game-subtitle">SURVIVAL HORROR</div>',
+    unsafe_allow_html=True
+)
 
     login_tab, register_tab = st.tabs(
         ["Login", "Register"]
