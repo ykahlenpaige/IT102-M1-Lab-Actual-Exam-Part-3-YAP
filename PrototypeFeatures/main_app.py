@@ -8,7 +8,7 @@ import save_files
 
 st.set_page_config(
     page_title="OverIndulgent",
-    page_icon="☠️"
+    page_icon="💊"
 )
 
 
