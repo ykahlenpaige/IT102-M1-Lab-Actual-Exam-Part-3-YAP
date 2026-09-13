@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+import base64
 
 import game_registration_login
 import main_menu
@@ -11,57 +13,106 @@ import save_files
 # -----------------------------
 
 st.set_page_config(
-    page_title="—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—",
-    page_icon="💊",
+    page_title="OverIndulgent",
+    page_icon="☠️",
     layout="centered"
 )
 
 
 # -----------------------------
-# CUSTOM FONT AND TEXT STYLE
+# GET BACKGROUND IMAGE
 # -----------------------------
 
-st.markdown("""
-<style>
+image_path = os.path.join(
+    os.path.dirname(__file__),
+    "title_screen.jpg"
+)
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+with open(image_path, "rb") as image_file:
+    image_data = base64.b64encode(
+        image_file.read()
+    ).decode()
 
-html, body, [class*="css"] {
-    font-family: 'Cinzel', serif;
-}
 
-h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 45px !important;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: 3px;
-}
+# -----------------------------
+# CUSTOM FONT + BACKGROUND
+# -----------------------------
 
-h2 {
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
+st.markdown(
+    f"""
+    <style>
 
-h3 {
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
+    @import url(
+        'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap'
+    );
 
-p {
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
-}
+    /* ENTIRE PAGE BACKGROUND */
 
-.stCaption {
-    text-align: center;
-    font-family: 'Cinzel', serif;
-}
+    .stApp {{
+        background-image:
+            linear-gradient(
+                rgba(0, 0, 0, 0.45),
+                rgba(0, 0, 0, 0.45)
+            ),
+            url("data:image/jpeg;base64,{image_data}");
 
-</style>
-""", unsafe_allow_html=True)
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
+
+
+    /* MAIN CONTENT */
+
+    .main .block-container {{
+        font-family: 'Cinzel', serif;
+    }}
+
+
+    /* TITLE */
+
+    h1 {{
+        font-family: 'Cinzel', serif;
+        font-size: 45px !important;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 4px;
+    }}
+
+
+    h2 {{
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }}
+
+
+    h3 {{
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }}
+
+
+    p {{
+        font-family: 'Cinzel', serif;
+        font-size: 16px;
+    }}
+
+
+    /* LOGIN BOX */
+
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
+        background: rgba(0, 0, 0, 0.55);
+        border-radius: 12px;
+        padding: 20px;
+    }}
+
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # -----------------------------
@@ -82,16 +133,21 @@ if "progress" not in st.session_state:
 
 
 # -----------------------------
-# LOGIN / REGISTER
+# LOGIN / REGISTER SCREEN
 # -----------------------------
 
 if not st.session_state.logged_in:
 
-    st.title("—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—")
+    st.title("☠️ OVERINDULGENT")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
     st.divider()
+
+
+    # -------------------------
+    # LOGIN / REGISTER
+    # -------------------------
 
     login_tab, register_tab = st.tabs(
         [
@@ -177,7 +233,7 @@ if not st.session_state.logged_in:
         )
 
         password = st.text_input(
-            "New Password",
+            "Password",
             type="password",
             key="register_password"
         )
@@ -233,6 +289,10 @@ else:
     st.sidebar.divider()
 
 
+    # -------------------------
+    # LOGOUT
+    # -------------------------
+
     if st.sidebar.button(
         "LOGOUT",
         use_container_width=True
@@ -247,27 +307,27 @@ else:
         st.rerun()
 
 
-    # -----------------------------
+    # -------------------------
     # MAIN MENU
-    # -----------------------------
+    # -------------------------
 
     if st.session_state.page == "menu":
 
         main_menu.show_menu()
 
 
-    # -----------------------------
+    # -------------------------
     # START GAME
-    # -----------------------------
+    # -------------------------
 
     elif st.session_state.page == "start":
 
         start_game.show_game(username)
 
 
-    # -----------------------------
+    # -------------------------
     # CONTINUE
-    # -----------------------------
+    # -------------------------
 
     elif st.session_state.page == "continue":
 
@@ -313,9 +373,9 @@ else:
             st.rerun()
 
 
-    # -----------------------------
+    # -------------------------
     # ABOUT GAME
-    # -----------------------------
+    # -------------------------
 
     elif st.session_state.page == "about":
 
@@ -350,33 +410,13 @@ else:
 
         st.subheader("USER JOURNEY")
 
-        st.write(
-            "1. Register or log in."
-        )
-
-        st.write(
-            "2. Start the game."
-        )
-
-        st.write(
-            "3. Take or reject the beauty pill."
-        )
-
-        st.write(
-            "4. Escape the factory and monsters."
-        )
-
-        st.write(
-            "5. Discover the truth about the pills."
-        )
-
-        st.write(
-            "6. Make choices that affect the ending."
-        )
-
-        st.write(
-            "7. Finish the game or return to the menu."
-        )
+        st.write("1. Register or log in.")
+        st.write("2. Start the game.")
+        st.write("3. Take or reject the beauty pill.")
+        st.write("4. Escape the factory and monsters.")
+        st.write("5. Discover the truth about the pills.")
+        st.write("6. Make choices that affect the ending.")
+        st.write("7. Finish the game or return to the menu.")
 
 
         st.divider()
@@ -392,9 +432,9 @@ else:
             st.rerun()
 
 
-    # -----------------------------
+    # -------------------------
     # EXIT
-    # -----------------------------
+    # -------------------------
 
     elif st.session_state.page == "exit":
 
