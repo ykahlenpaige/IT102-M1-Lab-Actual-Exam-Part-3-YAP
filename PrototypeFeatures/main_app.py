@@ -82,27 +82,16 @@ if "progress" not in st.session_state:
 
 
 # -----------------------------
-# LOGIN / REGISTER SCREEN
+# LOGIN / REGISTER
 # -----------------------------
 
 if not st.session_state.logged_in:
-
-    # TITLE SCREEN IMAGE
-    st.image(
-        "title_screen.jpg",
-        use_container_width=True
-    )
 
     st.title("☠️ OVERINDULGENT")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
     st.divider()
-
-
-    # -------------------------
-    # LOGIN AND REGISTER TABS
-    # -------------------------
 
     login_tab, register_tab = st.tabs(
         [
@@ -244,10 +233,6 @@ else:
     st.sidebar.divider()
 
 
-    # -------------------------
-    # LOGOUT
-    # -------------------------
-
     if st.sidebar.button(
         "LOGOUT",
         use_container_width=True
@@ -362,10 +347,6 @@ else:
 
         st.divider()
 
-
-        # -------------------------
-        # USER JOURNEY
-        # -------------------------
 
         st.subheader("USER JOURNEY")
 

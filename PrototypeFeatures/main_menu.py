@@ -43,7 +43,7 @@ def show_menu():
     # TITLE
     # -----------------------------
 
-    st.title("—=𝖮𝖵𝖤𝖱𝖨𝖭𝖣𝖴𝖫𝖤𝖦𝖤𝖭𝖳=—")
+    st.title("☠️ OVERINDULGENT")
 
     st.subheader("MAIN MENU")
 
