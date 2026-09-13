@@ -351,33 +351,8 @@ else:
         st.subheader("USER JOURNEY")
 
         st.write(
-            "1. Register or log in."
+            "1. Prototype by Kahlen Yap for OOP exam 1 :>."
         )
-
-        st.write(
-            "2. Start the game."
-        )
-
-        st.write(
-            "3. Take or reject the beauty pill."
-        )
-
-        st.write(
-            "4. Escape the factory and monsters."
-        )
-
-        st.write(
-            "5. Discover the truth about the pills."
-        )
-
-        st.write(
-            "6. Make choices that affect the ending."
-        )
-
-        st.write(
-            "7. Finish the game or return to the menu."
-        )
-
 
         st.divider()
 
