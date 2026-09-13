@@ -14,13 +14,13 @@ import save_files
 
 st.set_page_config(
     page_title="OverIndulgent",
-    page_icon="💊",
+    page_icon="☠️",
     layout="centered"
 )
 
 
 # -----------------------------
-# GET BACKGROUND IMAGE
+# BACKGROUND IMAGE
 # -----------------------------
 
 image_path = os.path.join(
@@ -35,7 +35,7 @@ with open(image_path, "rb") as image_file:
 
 
 # -----------------------------
-# CUSTOM FONT + BACKGROUND
+# FONT AND BACKGROUND STYLE
 # -----------------------------
 
 st.markdown(
@@ -46,25 +46,29 @@ st.markdown(
         'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap'
     );
 
-    /* ENTIRE PAGE BACKGROUND */
+
+    /* BACKGROUND */
 
     .stApp {{
         background-image:
             linear-gradient(
-                rgba(0, 0, 0, 0.45),
-                rgba(0, 0, 0, 0.45)
+                rgba(0, 0, 0, 0.50),
+                rgba(0, 0, 0, 0.50)
             ),
             url("data:image/jpeg;base64,{image_data}");
 
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
+        min-height: 100vh;
     }}
 
 
-    /* MAIN CONTENT */
+    /* FONT */
 
-    .main .block-container {{
+    html,
+    body,
+    [class*="css"] {{
         font-family: 'Cinzel', serif;
     }}
 
@@ -80,17 +84,11 @@ st.markdown(
     }}
 
 
-    h2 {{
-        font-family: 'Cinzel', serif;
-        font-weight: 600;
-        letter-spacing: 2px;
-    }}
-
-
+    h2,
     h3 {{
         font-family: 'Cinzel', serif;
         font-weight: 600;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
     }}
 
 
@@ -100,14 +98,38 @@ st.markdown(
     }}
 
 
+    /* CENTER LOGIN CONTENT */
+
+    .block-container {{
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }}
+
+
     /* LOGIN BOX */
 
     div[data-testid="stVerticalBlockBorderWrapper"] {{
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(0, 0, 0, 0.60);
         border-radius: 12px;
         padding: 20px;
     }}
 
+
+    /* BUTTONS */
+
+    .stButton > button {{
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }}
+
+
+    /* TABS */
+
+    button[data-baseweb="tab"] {{
+        font-family: 'Cinzel', serif;
+        font-weight: 600;
+    }}
 
     </style>
     """,
@@ -132,22 +154,22 @@ if "progress" not in st.session_state:
     st.session_state.progress = 1
 
 
-# -----------------------------
+# =====================================================
 # LOGIN / REGISTER SCREEN
-# -----------------------------
+# =====================================================
 
 if not st.session_state.logged_in:
 
-    st.title("—=OVERINDULGENT=—")
+    st.title("☠️ OVERINDULGENT")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
     st.divider()
 
 
-    # -------------------------
-    # LOGIN / REGISTER
-    # -------------------------
+    # -----------------------------
+    # LOGIN / REGISTER TABS
+    # -----------------------------
 
     login_tab, register_tab = st.tabs(
         [
@@ -157,9 +179,9 @@ if not st.session_state.logged_in:
     )
 
 
-    # -------------------------
+    # =================================================
     # LOGIN
-    # -------------------------
+    # =================================================
 
     with login_tab:
 
@@ -219,9 +241,9 @@ if not st.session_state.logged_in:
                 st.error(message)
 
 
-    # -------------------------
+    # =================================================
     # REGISTER
-    # -------------------------
+    # =================================================
 
     with register_tab:
 
@@ -263,18 +285,18 @@ if not st.session_state.logged_in:
                 st.error(message)
 
 
-# -----------------------------
+# =====================================================
 # AFTER LOGIN
-# -----------------------------
+# =====================================================
 
 else:
 
     username = st.session_state.username
 
 
-    # -------------------------
+    # -----------------------------
     # SIDEBAR
-    # -------------------------
+    # -----------------------------
 
     st.sidebar.title("☠️ OVERINDULGENT")
 
@@ -289,9 +311,9 @@ else:
     st.sidebar.divider()
 
 
-    # -------------------------
+    # -----------------------------
     # LOGOUT
-    # -------------------------
+    # -----------------------------
 
     if st.sidebar.button(
         "LOGOUT",
@@ -307,27 +329,27 @@ else:
         st.rerun()
 
 
-    # -------------------------
+    # =================================================
     # MAIN MENU
-    # -------------------------
+    # =================================================
 
     if st.session_state.page == "menu":
 
         main_menu.show_menu()
 
 
-    # -------------------------
+    # =================================================
     # START GAME
-    # -------------------------
+    # =================================================
 
     elif st.session_state.page == "start":
 
         start_game.show_game(username)
 
 
-    # -------------------------
+    # =================================================
     # CONTINUE
-    # -------------------------
+    # =================================================
 
     elif st.session_state.page == "continue":
 
@@ -373,9 +395,9 @@ else:
             st.rerun()
 
 
-    # -------------------------
+    # =================================================
     # ABOUT GAME
-    # -------------------------
+    # =================================================
 
     elif st.session_state.page == "about":
 
@@ -391,7 +413,7 @@ else:
 
         st.write(
             "The game follows a factory worker who "
-            "secretly consumes a pill and "
+            "secretly consumes a beauty pill and "
             "becomes the target of the factory."
         )
 
@@ -408,6 +430,30 @@ else:
         st.divider()
 
 
+        # -----------------------------
+        # USER JOURNEY
+        # -----------------------------
+
+        st.subheader("USER JOURNEY")
+
+        st.write("1. Register or log in.")
+
+        st.write("2. Start the game.")
+
+        st.write("3. Take or reject the beauty pill.")
+
+        st.write("4. Escape the factory and monsters.")
+
+        st.write("5. Discover the truth about the pills.")
+
+        st.write("6. Make choices that affect the ending.")
+
+        st.write("7. Finish the game or return to the menu.")
+
+
+        st.divider()
+
+
         if st.button(
             "← BACK TO MAIN MENU",
             use_container_width=True
@@ -418,9 +464,9 @@ else:
             st.rerun()
 
 
-    # -------------------------
+    # =================================================
     # EXIT
-    # -------------------------
+    # =================================================
 
     elif st.session_state.page == "exit":
 
