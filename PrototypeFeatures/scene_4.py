@@ -20,7 +20,7 @@ def show_scene(username):
     st.warning("PRODUCT EXPERIMENT — CONSUMER MUTATION REPORT")
 
     st.write(
-        "The beauty pills were never designed simply to make people beautiful."
+        "The pills were never designed simply to make people beautiful."
     )
 
     st.write(

@@ -11,13 +11,11 @@ import scene_3
 import scene_4
 
 
-# --------------------------------------------------
 # PAGE SETTINGS
-# --------------------------------------------------
 
 st.set_page_config(
     page_title="OverIndulgent",
-    page_icon="☠️",
+    page_icon="💊",
     layout="centered"
 )
 
@@ -508,7 +506,7 @@ else:
 
             st.session_state.page = "exit"
             st.rerun()
-            
+
     # ----------------------------------------------
     # CONTINUE GAME
     # ----------------------------------------------
@@ -623,8 +621,6 @@ else:
         st.write(
             """
             THIS IS ONLY A PROTOTYPE HUHU :'> made by Kahlen Yap for OOP m1 Exam
-            I lowk put a solid amount of love into this and drew all the scenes using IbisPaintX 
-            but the title screen. All scenes for the prototype and choices are by moi! :3
             """
         )
 
