@@ -14,7 +14,7 @@ import save_files
 
 st.set_page_config(
     page_title="OverIndulgent",
-    page_icon="☠️",
+    page_icon="💊",
     layout="centered"
 )
 
@@ -138,7 +138,7 @@ if "progress" not in st.session_state:
 
 if not st.session_state.logged_in:
 
-    st.title("☠️ OVERINDULGENT")
+    st.title("—=OVERINDULGENT=—")
 
     st.caption("SURVIVAL HORROR PROTOTYPE")
 
@@ -403,20 +403,6 @@ else:
             "instant gratification, status, beauty, "
             "and the effects of overconsumption."
         )
-
-
-        st.divider()
-
-
-        st.subheader("USER JOURNEY")
-
-        st.write("1. Register or log in.")
-        st.write("2. Start the game.")
-        st.write("3. Take or reject the beauty pill.")
-        st.write("4. Escape the factory and monsters.")
-        st.write("5. Discover the truth about the pills.")
-        st.write("6. Make choices that affect the ending.")
-        st.write("7. Finish the game or return to the menu.")
 
 
         st.divider()
